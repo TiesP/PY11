@@ -47,5 +47,6 @@ class Chicken(Bird):
 class Goose(Bird):
     gives_eggs = True
 
+
 d = Duck(10)
 d.count_feed_for_period(5)
