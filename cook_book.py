@@ -53,7 +53,7 @@ def print_shop_list(shop_list):
 def create_shop_list():
     cook_book = get_cook_book()
     print('В меню на сегодня:')
-    for key in cook_book.keys():
+    for key in cook_book:
         print(key)
     person_count = int(input('Введите количество человек: '))
     dishes = input('Введите блюда в расчете на одного человека (через запятую): ') \
