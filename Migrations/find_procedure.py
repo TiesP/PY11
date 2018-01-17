@@ -37,9 +37,35 @@
 
 import os
 
-migrations = 'Migrations'
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
+
+def check_file(file, str_search):
+    full_name = os.path.join(current_dir, file)
+    with open(full_name) as f:
+        text = f.read()
+        if str_search in text:
+            return True
+    return False
+
+
+def filter_files(all_files, str_search):
+    new_files = []
+    for file in all_files:
+        if check_file(file, str_search):
+            new_files.append(file)
+    return new_files
+
+
 if __name__ == '__main__':
-    # ваша логика
-    pass
+    files = [f for f in os.listdir(current_dir) if f.endswith('.sql')]
+    while True:
+        inp = input('Найдётся всё! Введите строку поиска:')
+        if inp == '':
+            print('надо хоть что-то вести...')
+            continue
+        else:
+            files = filter_files(files, inp)
+            for cur_file in files:
+                print(os.path.join(current_dir, cur_file))
+            print('Всего:', len(files))
