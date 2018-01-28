@@ -1,32 +1,30 @@
 import requests
 
-def translate_it(text):
-    """
-    YANDEX translation plugin
 
-    docs: https://tech.yandex.ru/translate/doc/dg/reference/translate-docpage/
+def get_text(file_source):
+    with open(file_source) as f:
+        return f.read()
 
-    https://translate.yandex.net/api/v1.5/tr.json/translate ?
-    key=<API-ключ>
-     & text=<переводимый текст>
-     & lang=<направление перевода>
-     & [format=<формат текста>]
-     & [options=<опции перевода>]
-     & [callback=<имя callback-функции>]
 
-    :param text: <str> text for translation.
-    :return: <str> translated text.
-    """
+def save_text(file_result, text_result):
+    with open(file_result, 'w', encoding='utf8') as f:
+        f.write(text_result)
+
+
+def translate_it(file_source, file_result, lang_source, lang_result='ru'):
     url = 'https://translate.yandex.net/api/v1.5/tr.json/translate'
     key = 'trnsl.1.1.20161025T233221Z.47834a66fd7895d0.a95fd4bfde5c1794fa433453956bd261eae80152'
 
     params = {
         'key': key,
-        'lang': 'ru-en',
-        'text': text,
+        'lang': '{}-{}'.format(lang_source, lang_result),
+        'text': get_text(file_source),
     }
     response = requests.get(url, params=params).json()
-    return ' '.join(response.get('text', []))
+    text_result = ' '.join(response.get('text', []))
+    save_text(file_result, text_result)
 
-a = translate_it('Привет')
-print(a)
+
+translate_it('DE.txt', 'DE-RU.txt', 'de')
+translate_it('ES.txt', 'ES-RU.txt', 'es')
+translate_it('FR.txt', 'FR-RU.txt', 'fr')
