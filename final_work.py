@@ -40,8 +40,7 @@ def get_groups_ext(id_user):
         'v': '5.73',
         'extended': 1
     }
-    result = get_data('groups.get', params, 'items')
-    return None if result is None else result
+    return get_data('groups.get', params, 'items')
 
 
 def get_groups(id_user):
@@ -50,8 +49,7 @@ def get_groups(id_user):
         'user_id': id_user,
         'v': '5.73'
     }
-    result = get_data('groups.get', params, 'items')
-    return None if result is None else result
+    return get_data('groups.get', params, 'items')
 
 
 def get_friends():
@@ -60,8 +58,7 @@ def get_friends():
         'user_id': USER_ID,
         'v': '5.73'
     }
-    result = get_data('friends.get', params, 'items')
-    return None if result is None else result
+    return get_data('friends.get', params, 'items')
 
 
 def get_members(group_id):
@@ -70,8 +67,7 @@ def get_members(group_id):
         'v': '5.73',
         'group_id': group_id
     }
-    result = get_data('groups.getMembers', params, 'count')
-    return None if result is None else result
+    return get_data('groups.getMembers', params, 'count')
 
 
 def save_file(result):
